@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/models/event.dart';
 
 class TodoListElement extends StatefulWidget {
   const TodoListElement({Key? key,
     required this.event,
   }) : super(key: key);
 
-  final String event;
+  final Event event;
 
   @override
   _TodoListElementState createState() => _TodoListElementState();
@@ -13,7 +14,7 @@ class TodoListElement extends StatefulWidget {
 
 class _TodoListElementState extends State<TodoListElement> {
 
-  bool isChecked = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +32,16 @@ class _TodoListElementState extends State<TodoListElement> {
         child: Row(
           children: [
             Checkbox(
-                value: isChecked,
+                value: widget.event.isCompleted,
                 onChanged: (val) {
                   setState(() {
-                    isChecked = !isChecked;
+                    widget.event.toggleIsCompleted();
                   });
                 },
               activeColor: Colors.black,
             ),
             SizedBox(width: 10),
-            Text(widget.event),
+            Text(widget.event.name),
           ],
         )
     );

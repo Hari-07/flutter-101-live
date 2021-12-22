@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/controller/appdata.dart';
+import 'package:todo_app/models/event.dart';
 import 'list_page_element.dart';
 import 'list_page_fab.dart';
 
@@ -8,7 +10,6 @@ class TodoHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    List<String> events = ["Event 1", "Event 2", "Event 3"];
 
 
     return Scaffold(
@@ -32,9 +33,9 @@ class TodoHomePage extends StatelessWidget {
             Expanded(
               child:ListView.builder(
                 itemBuilder: (context, index){
-                  return TodoListElement(event: events[index]);
+                  return TodoListElement(event: globalEventList[index]);
                 },
-                itemCount: events.length,
+                itemCount: globalEventList.length,
               ),
             )
           ],

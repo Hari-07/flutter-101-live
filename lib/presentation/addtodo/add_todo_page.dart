@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/controller/appdata.dart';
+import 'package:todo_app/models/event.dart';
 import 'package:todo_app/presentation/listpage/list_page.dart';
 
-class AddTodoPage extends StatelessWidget {
+class AddTodoPage extends StatefulWidget {
   const AddTodoPage({Key? key}) : super(key: key);
 
   @override
+  State<AddTodoPage> createState() => _AddTodoPageState();
+}
+
+class _AddTodoPageState extends State<AddTodoPage> {
+
+  String eventName = "";
+
+  @override
   Widget build(BuildContext context) {
+
+    // String eventName = "";
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -33,7 +46,9 @@ class AddTodoPage extends StatelessWidget {
                   hintText: 'Enter name of todo',
                 ),
                 onChanged: (str){
-                  print(str);
+                  setState(() {
+                    eventName = str;
+                  });
                 },
               ),
             ),
@@ -42,12 +57,16 @@ class AddTodoPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          print('Go to TODO list page');
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute (
-              builder: (BuildContext context) => const TodoHomePage(),
-            ),
-          );
+
+          if(eventName != "") {
+            //adding to event global variable
+            globalEventList.add(Event(name: eventName));
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (BuildContext context) => const TodoHomePage(),
+              ),
+            );
+          }
         },
         backgroundColor: Colors.black,
         child: Icon(
